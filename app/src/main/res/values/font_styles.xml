@@ -1,0 +1,7 @@
+<resources>
+    <string name="OpenSans" translatable="false">OpenSans</string>
+    <string name="Bold" translatable="false">Bold</string>
+    <string name="Semibold" translatable="false">Semibold</string>
+    <string name="Regular" translatable="false">Regular</string>
+    <string name="Medium" translatable="false">@string/Semibold</string>
+</resources>

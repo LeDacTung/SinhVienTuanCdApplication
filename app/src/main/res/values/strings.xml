@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">BanThuocApiApplication</string>
+    <string name="name_app">CONSULT</string>
+    <string name="get_start">Get started</string>
+
+    <string name="title_splash_1">Consult Specialist Doctors Securely And Privately</string>
+    <string name="sub_title_splash_1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada vulputate facilisi eget neque, nunc suspendisse massa augue. Congue sit augue volutpat vel. Dictum dignissim ac pharetra.</string>
+    <string name="title_splash_2">Consult Specialist Doctors</string>
+    <string name="sub_title_splash_2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada vulputate facilisi eget neque, nunc suspendisse massa augue.</string>
+    <string name="title_splash_3">Consult Specialist</string>
+    <string name="sub_title_splash_3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada vulputate facilisi eget neque, nunc suspendisse massa augue. Congue sit augue volutpat vel.</string>
+
+    <string name="search">Search</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="welcome_back">Welcome back</string>
+    <string name="create_an_account">Create an account here</string>
+    <string name="login_with_gmail">Login with Gmail</string>
+    <string name="login_with_facebook">Login with Facebook</string>
+    <string name="hint_password">Enter password</string>
+    <string name="hint_username">Enter username</string>
+
+    <string name="create_account">Create account</string>
+    <string name="back_to">Back to</string>
+    <string name="upload_file">Upload file</string>
+</resources>

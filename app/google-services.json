@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "131176147660",
+    "project_id": "work-826a1",
+    "storage_bucket": "work-826a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131176147660:android:c30c88517da377e379f069",
+        "android_client_info": {
+          "package_name": "com.example.sinhvienapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131176147660-h7609paugddgakrukn0v4a458r4170qv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sinhvienapplication",
+            "certificate_hash": "138929c8a6e88dfe8ee3ace74b682ca64cf5ba16"
+          }
+        },
+        {
+          "client_id": "131176147660-m8r1425tq8bm4imd426q3orcmh2plpnd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCLjueUVBgfVwagi32AiPpgikQwd3BmYK4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131176147660-m8r1425tq8bm4imd426q3orcmh2plpnd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

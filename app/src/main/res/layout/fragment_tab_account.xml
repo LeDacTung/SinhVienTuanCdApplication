@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="@dimen/padding_10"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:textSize="25dp"
+        android:textColor="@color/black"
+        android:text="Profile"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    </TextView>
+
+    <RelativeLayout
+        android:id="@+id/layoutImage"
+        android:layout_marginTop="@dimen/padding_10"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/layoutImg"
+            android:background="@drawable/bg_boder_circle"
+            android:layout_width="155dp"
+            android:layout_height="155dp">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_iv"
+                android:layout_centerInParent="true"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/img_account">
+            </de.hdodenhof.circleimageview.CircleImageView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layoutImg"
+            android:layout_marginLeft="-40dp"
+            android:layout_marginTop="-40dp"
+            android:layout_toRightOf="@id/layoutImg"
+            android:background="@drawable/bg_cirlce_white"
+            android:padding="4dp">
+
+            <ImageView
+                android:id="@+id/edit_image_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_circle_green"
+                android:padding="6dp"
+                android:src="@drawable/ic_baseline_edit_24"
+                app:tint="@color/white">
+            </ImageView>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/padding_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="14dp"
+            android:textColor="@color/grey"
+            android:text="Full name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <EditText
+            android:layout_marginTop="@dimen/padding_3"
+            android:background="@null"
+            android:textSize="16dp"
+            android:text="AAAAAA"
+            android:id="@+id/name_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+
+        <View
+            android:layout_marginTop="5dp"
+            android:background="@color/grey_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/padding_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="14dp"
+            android:textColor="@color/grey"
+            android:text="Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <EditText
+            android:layout_marginTop="@dimen/padding_3"
+            android:background="@null"
+            android:textSize="16dp"
+            android:text="AAAAAA"
+            android:id="@+id/email_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+
+        <View
+            android:layout_marginTop="5dp"
+            android:background="@color/grey_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/padding_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="14dp"
+            android:textColor="@color/grey"
+            android:text="Address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <EditText
+            android:layout_marginTop="@dimen/padding_3"
+            android:background="@null"
+            android:textSize="16dp"
+            android:text="AAAAAA"
+            android:id="@+id/address_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+
+        <View
+            android:layout_marginTop="5dp"
+            android:background="@color/grey_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/padding_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="14dp"
+            android:textColor="@color/grey"
+            android:text="Birth Day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/padding_3"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_category_24"
+                app:tint="@color/green_main">
+            </ImageView>
+            <TextView
+                android:layout_marginLeft="@dimen/v2_margin5"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:textSize="16dp"
+                android:text="AAAAAA"
+                android:textColor="@color/black"
+                android:id="@+id/birthday_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="5dp"
+            android:background="@color/grey_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/black_1"
+            android:text="Cancel"
+            android:minHeight="40dp"
+            android:background="@drawable/bg_btn_grey"
+            android:id="@+id/cancel_tv"
+            android:layout_weight="1"
+            android:layout_marginRight="@dimen/v2_margin5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <TextView
+            android:layout_marginLeft="@dimen/v2_margin5"
+            android:gravity="center"
+            android:minHeight="40dp"
+            android:textSize="@dimen/padding_16"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_btn_green"
+            android:textAlignment="center"
+            android:text="Save"
+            android:id="@+id/save_tv"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </TextView>
+
+    </LinearLayout>
+
+</LinearLayout>

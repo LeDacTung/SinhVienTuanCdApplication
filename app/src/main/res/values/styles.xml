@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextSans" parent="TextAppearance.AppCompat.Medium">
+        <item name="typeFaceFont">@string/OpenSans</item>
+    </style>
+
+    <style name="Text" parent="TextSans"></style>
+
+    <style name="Text.Logo">
+        <item name="android:textSize">@dimen/padding_18</item>
+        <item name="typeFaceStyle">Semibold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+
+</resources>

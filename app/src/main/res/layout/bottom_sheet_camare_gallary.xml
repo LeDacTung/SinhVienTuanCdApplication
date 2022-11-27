@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:background="@drawable/bg_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_marginTop="@dimen/v2_margin5"
+                android:background="@drawable/bg_view_grey"
+                android:layout_gravity="center"
+                android:layout_width="@dimen/padding_30"
+                android:layout_height="@dimen/padding_3">
+            </View>
+
+            <TextView
+                android:layout_marginTop="@dimen/padding_10"
+                android:textSize="13dp"
+                android:textColor="@color/black"
+                android:text="Đổi ảnh đại diện"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="@dimen/v2_margin5"
+            android:background="@color/grey_1"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="1dp">
+        </View>
+
+        <LinearLayout
+            android:layout_marginBottom="@dimen/padding_10"
+            android:orientation="vertical"
+            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/camera_tv"
+                android:layout_marginTop="@dimen/padding_10"
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:text="Camera"
+                android:layout_width="@dimen/v2_size100"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <TextView
+                android:id="@+id/gallery_tv"
+                android:layout_marginTop="@dimen/padding_15"
+                android:textSize="14dp"
+                android:textColor="@color/black"
+                android:text="Gallery"
+                android:layout_width="@dimen/v2_size100"
+                android:layout_height="wrap_content">
+            </TextView>
+
+        </LinearLayout>
+
+        <View
+            android:background="@color/grey_1"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="1dp">
+        </View>
+    </LinearLayout>
+
+</RelativeLayout>
