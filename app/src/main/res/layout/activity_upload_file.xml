@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_margin="@dimen/padding_15"
+<ScrollView
+    android:scrollbars="none"
+    android:fillViewport="true"
+    android:layout_margin="@dimen/padding_15"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -7,147 +10,174 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:padding="7dp"
-        android:background="@drawable/bg_circle_green"
-        android:src="@drawable/ic_baseline_keyboard_backspace_24"
-        android:id="@+id/back_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:tint="@color/white">
-    </ImageView>
-
     <LinearLayout
-        android:gravity="center"
-        android:layout_margin="@dimen/padding_10"
-        android:id="@+id/layoutMain"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:id="@+id/layoutHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:textColor="@color/black"
-                android:textSize="43dp"
-                android:text="@string/upload_file"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-            </TextView>
-
-        </LinearLayout>
+        <ImageView
+            android:padding="7dp"
+            android:background="@drawable/bg_circle_green"
+            android:src="@drawable/ic_baseline_keyboard_backspace_24"
+            android:id="@+id/back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tint="@color/white">
+        </ImageView>
 
         <LinearLayout
-            android:layout_marginTop="@dimen/padding_30"
+            android:gravity="center"
+            android:layout_margin="@dimen/padding_10"
+            android:id="@+id/layoutMain"
             android:orientation="vertical"
-            android:id="@+id/layoutBody"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="match_parent">
             <LinearLayout
                 android:orientation="vertical"
+                android:id="@+id/layoutHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
-                    android:textSize="@dimen/padding_14"
+                    android:id="@+id/header_tv"
                     android:textColor="@color/black"
-                    android:text="Title"
+                    android:textSize="43dp"
+                    android:text="@string/upload_file"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 </TextView>
 
-                <EditText
-                    android:id="@+id/title_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </EditText>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_marginTop="@dimen/padding_15"
+                android:layout_marginTop="@dimen/padding_30"
                 android:orientation="vertical"
+                android:id="@+id/layoutBody"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:textSize="@dimen/padding_14"
-                    android:textColor="@color/black"
-                    android:text="Description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </TextView>
-
-                <EditText
-                    android:id="@+id/description_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                </EditText>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:id="@+id/layoutUpload"
-                android:visibility="visible"
-                android:layout_gravity="center"
-                android:padding="@dimen/padding_10"
-                android:background="@drawable/bg_upload_file"
-                android:layout_marginTop="@dimen/padding_15"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/v2_size80">
 
                 <LinearLayout
-                    android:layout_gravity="center"
-                    android:gravity="center"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <ImageView
-                        android:src="@drawable/ic_baseline_cloud_upload_24"
-                        android:id="@+id/attachment_iv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:tint="@color/green_main">
-                    </ImageView>
                     <TextView
-                        android:layout_marginTop="@dimen/v2_margin5"
-                        android:layout_marginLeft="@dimen/v2_margin5"
-                        android:layout_gravity="center"
                         android:textSize="@dimen/padding_14"
-                        android:textColor="@color/grey"
-                        android:text="Upload your attachment"
+                        android:textColor="@color/black"
+                        android:text="Title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
                     </TextView>
+
+                    <EditText
+                        android:id="@+id/title_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </EditText>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="@dimen/padding_14"
+                        android:textColor="@color/black"
+                        android:text="Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <EditText
+                        android:id="@+id/description_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </EditText>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:textSize="@dimen/padding_14"
+                        android:textColor="@color/black"
+                        android:text="Teacher"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <Spinner
+                        android:layout_marginTop="@dimen/padding_7"
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    </Spinner>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutUpload"
+                    android:visibility="visible"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/padding_10"
+                    android:background="@drawable/bg_upload_file"
+                    android:layout_marginTop="@dimen/padding_15"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/v2_size80">
+
+                    <LinearLayout
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:src="@drawable/ic_baseline_cloud_upload_24"
+                            android:id="@+id/attachment_iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:tint="@color/green_main">
+                        </ImageView>
+                        <TextView
+                            android:layout_marginTop="@dimen/v2_margin5"
+                            android:layout_marginLeft="@dimen/v2_margin5"
+                            android:layout_gravity="center"
+                            android:textSize="@dimen/padding_14"
+                            android:textColor="@color/grey"
+                            android:text="Upload your attachment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                        </TextView>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <include
+                    android:visibility="gone"
+                    android:id="@+id/layoutFile"
+                    android:layout_marginTop="@dimen/padding_15"
+                    layout="@layout/layout_file"
+                    android:layout_height="@dimen/v2_size80"
+                    android:layout_width="match_parent" />
+
+                <TextView
+                    android:id="@+id/upload_btn"
+                    android:minHeight="@dimen/size_50dp"
+                    android:layout_marginTop="@dimen/padding_30"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/padding_20"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="@string/upload_file"
+                    android:background="@drawable/bg_btn_green"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+
             </LinearLayout>
 
-            <include
-                android:visibility="gone"
-                android:id="@+id/layoutFile"
-                android:layout_marginTop="@dimen/padding_15"
-                layout="@layout/layout_file"
-                android:layout_height="@dimen/v2_size80"
-                android:layout_width="match_parent" />
-
-            <TextView
-                android:id="@+id/upload_btn"
-                android:minHeight="@dimen/size_50dp"
-                android:layout_marginTop="@dimen/padding_30"
-                android:textStyle="bold"
-                android:textSize="@dimen/padding_20"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:text="@string/upload_file"
-                android:background="@drawable/bg_btn_green"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </TextView>
-
         </LinearLayout>
-
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BanThuocApiApplication</string>
+    <string name="app_name">SinhVienApplication</string>
     <string name="name_app">CONSULT</string>
     <string name="get_start">Get started</string>
 
@@ -19,8 +19,12 @@
     <string name="login_with_facebook">Login with Facebook</string>
     <string name="hint_password">Enter password</string>
     <string name="hint_username">Enter username</string>
+    <string name="hint_student_code">Enter your student code</string>
+    <string name="hint_class">Enter your class</string>
 
     <string name="create_account">Create account</string>
     <string name="back_to">Back to</string>
     <string name="upload_file">Upload file</string>
+    <string name="student">Student</string>
+    <string name="teacher">Teacher</string>
 </resources>

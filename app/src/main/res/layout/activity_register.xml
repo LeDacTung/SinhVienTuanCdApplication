@@ -150,13 +150,132 @@
 
 
                             <EditText
-                                android:text="AAAA"
+                                android:text="fdasfda"
                                 android:id="@+id/username_edt"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="@dimen/padding_5"
                                 android:background="@null"
-                                android:hint="@string/hint_password"
+                                android:hint="@string/hint_username"
+                                android:minHeight="@dimen/padding_30"
+                                android:textSize="@dimen/v2_text_size14">
+                            </EditText>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_margin="5dp"
+                        android:layout_marginLeft="@dimen/padding_5"
+                        android:background="@color/grey_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp">
+                    </View>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="@dimen/padding_20"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@id/eye_iv"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_credit_card_24"
+                                app:tint="@color/black_1">
+                            </ImageView>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="@dimen/padding_30"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/padding_5"
+                                android:background="@color/grey_2">
+                            </View>
+
+
+                            <EditText
+                                android:text="jdjdjd"
+                                android:id="@+id/id_edt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/padding_5"
+                                android:background="@null"
+                                android:hint="@string/hint_student_code"
+                                android:minHeight="@dimen/padding_30"
+                                android:textSize="@dimen/v2_text_size14">
+                            </EditText>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_margin="5dp"
+                        android:layout_marginLeft="@dimen/padding_5"
+                        android:background="@color/grey_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp">
+                    </View>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutClass"
+                    android:layout_marginTop="@dimen/padding_20"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@id/eye_iv"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_baseline_class_24"
+                                app:tint="@color/black_1">
+                            </ImageView>
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="@dimen/padding_30"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="@dimen/padding_5"
+                                android:background="@color/grey_2">
+                            </View>
+
+
+                            <EditText
+                                android:text="aaaa"
+                                android:id="@+id/class_edt"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/padding_5"
+                                android:background="@null"
+                                android:hint="@string/hint_class"
                                 android:minHeight="@dimen/padding_30"
                                 android:textSize="@dimen/v2_text_size14">
                             </EditText>

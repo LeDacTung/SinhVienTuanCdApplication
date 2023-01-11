@@ -21,7 +21,6 @@ public class DialogUtils {
                 }
                 sProgress = new ProgressDialog(activity);
                 sProgress.setCancelable(false);
-                sProgress.setIndeterminateDrawable(activity.getResources().getDrawable(R.drawable.progress_bar));
                 sProgress.show();
             }
 
@@ -41,7 +40,6 @@ public class DialogUtils {
                 }
                 sProgress = new ProgressDialog(activity);
                 sProgress.setCancelable(false);
-                sProgress.setIndeterminateDrawable(activity.getResources().getDrawable(R.drawable.progress_bar));
                 sProgress.setMessage(message);
                 sProgress.show();
             }

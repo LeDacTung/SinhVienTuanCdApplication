@@ -8,7 +8,6 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:visibility="gone"
         android:padding="7dp"
         android:background="@drawable/bg_circle_green"
         android:src="@drawable/ic_baseline_keyboard_backspace_24"

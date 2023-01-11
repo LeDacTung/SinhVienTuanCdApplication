@@ -1,8 +1,10 @@
 package com.example.sinhvienapplication.screen.home;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -11,8 +13,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.sinhvienapplication.R;
 import com.example.sinhvienapplication.base.BaseActivity;
-import com.example.sinhvienapplication.screen.detail.DetailActivity;
 import com.example.sinhvienapplication.screen.home.tab.AccountTabFragment;
+import com.example.sinhvienapplication.screen.home.tab.HomeTabFragment;
 import com.example.sinhvienapplication.screen.uploadfile.UploadFileActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -29,7 +31,7 @@ public class HomeActivity extends BaseActivity {
     public void onPrepareLayout() {
         super.onPrepareLayout();
 
-        addFragmentToActivity(new AccountTabFragment());
+        addFragmentToActivity(new HomeTabFragment());
         initView();
     }
 
@@ -41,7 +43,7 @@ public class HomeActivity extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.home_menu:
-                        startActivity(new Intent(HomeActivity.this, DetailActivity.class));
+                        addFragmentToActivity(new HomeTabFragment());
                         break;
                     case R.id.upload_file_menu:
                         startActivity(new Intent(HomeActivity.this, UploadFileActivity.class));

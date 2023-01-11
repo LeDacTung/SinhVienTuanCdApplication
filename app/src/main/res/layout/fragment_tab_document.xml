@@ -19,14 +19,24 @@
         app:tint="@color/white">
     </ImageView>
 
-    <TextView
-        android:id="@+id/text"
-        android:text="AAAAAAA"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <com.github.barteksc.pdfviewer.PDFView
-        android:id="@+id/pdf_view"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </com.github.barteksc.pdfviewer.PDFView>
+        <com.github.barteksc.pdfviewer.PDFView
+            android:id="@+id/pdf_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.github.barteksc.pdfviewer.PDFView>
+
+        <TextView
+            android:id="@+id/page_tv"
+            android:textColor="@color/black"
+            android:text="0/1"
+            android:layout_marginBottom="@dimen/padding_15"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+    </RelativeLayout>
 </LinearLayout>

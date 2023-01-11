@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="@dimen/padding_10"
+    android:layout_height="wrap_content">
+
+
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="@color/green_main"
+                style="@style/Text.Logo"
+                android:id="@+id/title_tv"
+                android:text="Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_baseline_close_24"
+                android:id="@+id/close_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:tint="@color/green_main">
+            </ImageView>
+        </RelativeLayout>
+
+        <TextView
+            android:textSize="@dimen/padding_16"
+            android:layout_marginTop="@dimen/padding_20"
+            android:id="@+id/content_tv"
+            android:text="Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/padding_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/yes_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_btn_green"
+                android:gravity="center"
+                android:minWidth="100dp"
+                android:minHeight="28dp"
+                android:text="Yes"
+                android:textColor="@color/white"></TextView>
+
+
+            <TextView
+                android:id="@+id/no_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_btn_grey"
+                android:gravity="center"
+                android:minWidth="100dp"
+                android:minHeight="28dp"
+                android:text="No"
+                android:textColor="@color/black"></TextView>
+
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>

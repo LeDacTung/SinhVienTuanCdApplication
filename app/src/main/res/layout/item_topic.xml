@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:layout_margin="@dimen/padding_10"
+    app:cardCornerRadius="@dimen/padding_5"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:padding="@dimen/padding_10"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image"
+                android:layout_gravity="center"
+                android:src="@color/green_main"
+                android:layout_width="@dimen/v2_margin50"
+                android:layout_height="@dimen/v2_margin50">
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+            <LinearLayout
+                android:layout_marginLeft="@dimen/padding_15"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="@dimen/padding_15"
+                    android:text="Title"
+                    android:textColor="@color/black"
+                    android:id="@+id/title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+                <TextView
+                    android:layout_marginTop="@dimen/v2_margin5"
+                    android:textSize="@dimen/padding_14"
+                    android:text="CT2"
+                    android:textColor="@color/black"
+                    android:id="@+id/class_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+                <TextView
+                    android:layout_marginTop="@dimen/v2_margin5"
+                    android:textSize="@dimen/padding_14"
+                    android:text="02/12/2022"
+                    android:id="@+id/time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="@dimen/padding_10"
+            android:background="@color/grey_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_1dp">
+        </View>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/padding_15"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginTop="@dimen/v2_margin5"
+                android:textSize="@dimen/padding_14"
+                android:text="Description"
+                android:textColor="@color/black"
+                android:id="@+id/description_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </TextView>
+
+            <LinearLayout
+                android:id="@+id/layoutFile"
+                android:layout_marginTop="@dimen/padding_10"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+
+                    android:background="@drawable/bg_circle_grey"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_baseline_insert_drive_file_24"
+                    android:padding="8dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp">
+                </de.hdodenhof.circleimageview.CircleImageView>
+
+                <LinearLayout
+                    android:layout_marginLeft="@dimen/padding_10"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_marginTop="@dimen/v2_margin5"
+                        android:textSize="@dimen/padding_14"
+                        android:text="CT2"
+                        android:textColor="@color/black"
+                        android:id="@+id/name_file_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                    <TextView
+                        android:layout_marginTop="@dimen/v2_margin5"
+                        android:textSize="@dimen/padding_14"
+                        android:text="02/12/2022"
+                        android:id="@+id/size_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_marginTop="@dimen/padding_10"
+                android:textColor="@color/green_main"
+                android:text="( * ) Approved Topic!!!"
+                android:textSize="@dimen/padding_13"
+                android:textStyle="bold"
+                android:id="@+id/note_approve_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+        </LinearLayout>
+
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="@dimen/padding_20"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_btn_green"
+            android:text="Approve"
+            android:id="@+id/approve_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/v2_margin35">
+        </TextView>
+
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="@dimen/padding_20"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_btn_yellow"
+            android:text="Edit"
+            android:id="@+id/edit_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/v2_margin35">
+        </TextView>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
