@@ -123,7 +123,6 @@ public class RegisterActivity extends BaseActivity {
                     }else {
                         checkIdUser(mail, password, id, username, "");
                     }
-
                 }
 
             }
