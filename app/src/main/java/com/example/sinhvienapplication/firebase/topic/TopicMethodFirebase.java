@@ -1,5 +1,7 @@
 package com.example.sinhvienapplication.firebase.topic;
 
+import androidx.annotation.NonNull;
+
 import com.example.sinhvienapplication.constant.Constant;
 import com.example.sinhvienapplication.firebase.FirebaseMethods;
 import com.example.sinhvienapplication.model.Topic;
@@ -12,7 +14,7 @@ import com.google.firebase.firestore.Query;
 public class TopicMethodFirebase {
     final FirebaseMethods firebaseMethods = new FirebaseMethods();
 
-    public Task<Void> uploadFile(Topic topic) {
+    public Task<Void> uploadFile(@NonNull Topic topic) {
         return firebaseMethods.topicRef
                 .document(topic.getUidTeacher())
                 .collection(topic.getStatus())
@@ -28,7 +30,7 @@ public class TopicMethodFirebase {
                 .collection(Constant.Firebase.TOPIC_COLLECTION);
     }
 
-    public Task<Void> uploadFileStudent(Topic topic) {
+    public Task<Void> uploadFileStudent(@NonNull Topic topic) {
         return firebaseMethods.userRef
                 .document(Constant.Firebase.TYPE_COLLECTION)
                 .collection(Constant.Firebase.TYPE_STUDENT_COLLECTION)
@@ -38,7 +40,7 @@ public class TopicMethodFirebase {
                 .set(topic.toMap());
     }
 
-    public Task<Void> uploadFileTeacher(Topic topic) {
+    public Task<Void> uploadFileTeacher(@NonNull Topic topic) {
         return firebaseMethods.userRef
                 .document(Constant.Firebase.TYPE_COLLECTION)
                 .collection(Constant.Firebase.TYPE_TEACHER_COLLECTION)
@@ -48,7 +50,7 @@ public class TopicMethodFirebase {
                 .set(topic.toMap());
     }
 
-    public Task<Void> approveFile(Topic topic) {
+    public Task<Void> approveFile(@NonNull Topic topic) {
         return firebaseMethods.topicRef
                 .document(topic.getUidTeacher())
                 .collection(topic.getStatus())
@@ -56,7 +58,7 @@ public class TopicMethodFirebase {
                 .set(topic.toMap());
     }
 
-    public Task<Void> approveFileTeacher(Topic topic) {
+    public Task<Void> approveFileTeacher(@NonNull Topic topic) {
         return firebaseMethods.userRef
                 .document(Constant.Firebase.TYPE_COLLECTION)
                 .collection(Constant.Firebase.TYPE_TEACHER_COLLECTION)
@@ -66,7 +68,7 @@ public class TopicMethodFirebase {
                 .set(topic.toMap());
     }
 
-    public Task<Void> approveFileStudent(Topic topic) {
+    public Task<Void> approveFileStudent(@NonNull Topic topic) {
         return firebaseMethods.userRef
                 .document(Constant.Firebase.TYPE_COLLECTION)
                 .collection(Constant.Firebase.TYPE_STUDENT_COLLECTION)
@@ -76,7 +78,7 @@ public class TopicMethodFirebase {
                 .set(topic.toMap());
     }
 
-    public Task<Void> updateFile(Topic topic) {
+    public Task<Void> updateFile(@NonNull Topic topic) {
         return firebaseMethods.topicRef
                 .document(topic.getUidTeacher())
                 .collection(topic.getStatus())
@@ -84,12 +86,32 @@ public class TopicMethodFirebase {
                 .update(topic.toMap());
     }
 
-    public Task<Void> deleteFile(Topic topic) {
+    public Task<Void> deleteFile(@NonNull Topic topic) {
         return firebaseMethods.topicRef
                 .document(topic.getUidTeacher())
                 .collection(topic.getStatus())
                 .document(topic.getUidStudent())
                 .delete();
+    }
+
+    public Task<Void> markFileStudent(@NonNull Topic topic) {
+        return firebaseMethods.userRef
+                .document(Constant.Firebase.TYPE_COLLECTION)
+                .collection(Constant.Firebase.TYPE_STUDENT_COLLECTION)
+                .document(topic.getUidStudent())
+                .collection(Constant.Firebase.TOPIC_COLLECTION)
+                .document(topic.getUidTeacher())
+                .update(topic.toMap());
+    }
+
+    public Task<Void> markFileTeacher(@NonNull Topic topic) {
+        return firebaseMethods.userRef
+                .document(Constant.Firebase.TYPE_COLLECTION)
+                .collection(Constant.Firebase.TYPE_TEACHER_COLLECTION)
+                .document(topic.getUidTeacher())
+                .collection(Constant.Firebase.TOPIC_COLLECTION)
+                .document(topic.getUidStudent())
+                .update(topic.toMap());
     }
 
     public Query searchTopic(String value, String uid, String status) {

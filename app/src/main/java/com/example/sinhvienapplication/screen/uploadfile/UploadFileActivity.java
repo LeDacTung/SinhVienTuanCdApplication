@@ -258,7 +258,8 @@ public class UploadFileActivity extends BaseActivity {
                             Constant.FILE.STATUS_NOT_APPROVE,
                             mSizeFile,
                             mUser.getGrade(),
-                            mUser.getImage()
+                            mUser.getImage(),
+                            Constant.NUMBER_MARK.MARK_DEFAULT /* điểm mặc định khi upload file */
                     );
                     topicMethodFirebase.uploadFileStudent(topic);
                     topicMethodFirebase.uploadFileTeacher(topic);

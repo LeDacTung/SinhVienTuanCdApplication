@@ -29,6 +29,9 @@ public interface Constant {
         String PDF = "pdf";
         String DOCX = "docx";
         String DOC = "doc";
+    }
 
+    interface NUMBER_MARK {
+        String MARK_DEFAULT = "";
     }
 }
