@@ -2,7 +2,6 @@ package com.example.sinhvienapplication.screen.register;
 
 import android.content.Intent;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,12 +24,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
@@ -49,7 +44,7 @@ public class RegisterActivity extends BaseActivity {
 
     FirebaseAuth mAuth;
     UserMethodFirebase mUserMethod;
-    LinearLayout layoutClass;
+    LinearLayout mLayoutClass, mLayoutId;
     final UserMethodFirebase userMethodFirebase = new UserMethodFirebase();
 
     private void initView() {
@@ -61,7 +56,8 @@ public class RegisterActivity extends BaseActivity {
         mUsernameEdt = findViewById(R.id.username_edt);
         mStudentCodeEdt = findViewById(R.id.id_edt);
         mClassEdt = findViewById(R.id.class_edt);
-        layoutClass = findViewById(R.id.layoutClass);
+        mLayoutClass = findViewById(R.id.layoutClass);
+        mLayoutId = findViewById(R.id.layoutId);
 
         mBackIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,9 +74,14 @@ public class RegisterActivity extends BaseActivity {
         });
 
         if(PrefManager.getTypeUser(getViewContext()).equals(Constant.Firebase.TYPE_STUDENT_COLLECTION)){
-            layoutClass.setVisibility(View.VISIBLE);
-        }else {
-            layoutClass.setVisibility(View.GONE);
+            mLayoutClass.setVisibility(View.VISIBLE);
+            mLayoutId.setVisibility(View.VISIBLE);
+        } else if(PrefManager.getTypeUser(getViewContext()).equals(Constant.Firebase.TYPE_ADMIN_COLLECTION)){
+            mLayoutClass.setVisibility(View.GONE);
+            mLayoutId.setVisibility(View.GONE);
+        } else {
+            mLayoutClass.setVisibility(View.GONE);
+            mLayoutId.setVisibility(View.VISIBLE);
         }
     }
 

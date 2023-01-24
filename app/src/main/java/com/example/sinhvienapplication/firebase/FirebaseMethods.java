@@ -10,4 +10,5 @@ public class FirebaseMethods {
     public final CollectionReference userRef = mFirestore.collection(Constant.Firebase.USER_COLLECTION);
 
     public final CollectionReference topicRef = mFirestore.collection(Constant.Firebase.TOPIC_COLLECTION);
+
 }

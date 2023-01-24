@@ -14,7 +14,25 @@ import com.google.firebase.firestore.Query;
 public class TopicMethodFirebase {
     final FirebaseMethods firebaseMethods = new FirebaseMethods();
 
-    public Task<Void> uploadFile(@NonNull Topic topic) {
+    public Task<Void> uploadFileAdmin(@NonNull Topic topic) {
+        return firebaseMethods.topicRef
+                .document(topic.getUidStudent())
+                .set(topic.toMap());
+    }
+
+    public Task<Void> updateFileAdmin(@NonNull Topic topic) {
+        return firebaseMethods.topicRef
+                .document(topic.getUidStudent())
+                .update(topic.toMap());
+    }
+
+    public Task<Void> approveFileAdmin(@NonNull Topic topic) {
+        return firebaseMethods.topicRef
+                .document(topic.getUidStudent())
+                .set(topic.toMap());
+    }
+
+    public Task<Void> deleteFileAdmin(@NonNull Topic topic) {
         return firebaseMethods.topicRef
                 .document(topic.getUidTeacher())
                 .collection(topic.getStatus())
@@ -46,14 +64,6 @@ public class TopicMethodFirebase {
                 .collection(Constant.Firebase.TYPE_TEACHER_COLLECTION)
                 .document(topic.getUidTeacher())
                 .collection(Constant.Firebase.TOPIC_COLLECTION)
-                .document(topic.getUidStudent())
-                .set(topic.toMap());
-    }
-
-    public Task<Void> approveFile(@NonNull Topic topic) {
-        return firebaseMethods.topicRef
-                .document(topic.getUidTeacher())
-                .collection(topic.getStatus())
                 .document(topic.getUidStudent())
                 .set(topic.toMap());
     }

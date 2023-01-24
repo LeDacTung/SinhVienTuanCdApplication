@@ -13,7 +13,9 @@ import com.example.sinhvienapplication.R;
 import com.example.sinhvienapplication.adapter.TopicAdapter;
 import com.example.sinhvienapplication.base.BaseFragment;
 import com.example.sinhvienapplication.constant.Constant;
+import com.example.sinhvienapplication.firebase.FirebaseMethods;
 import com.example.sinhvienapplication.firebase.topic.TopicMethodFirebase;
+import com.example.sinhvienapplication.firebase.user.UserMethodFirebase;
 import com.example.sinhvienapplication.model.Topic;
 import com.example.sinhvienapplication.savedata.PrefManager;
 import com.example.sinhvienapplication.screen.home.HomeActivity;
@@ -26,7 +28,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeTabFragment extends BaseFragment<HomeActivity> implements TopicAdapter.TopicClickListener {
     @Override
@@ -37,8 +38,11 @@ public class HomeTabFragment extends BaseFragment<HomeActivity> implements Topic
     ArrayList<Topic> mTopics;
     TopicAdapter mTopicAdapter;
     RecyclerView mRecyclerView;
-    TopicMethodFirebase topicMethodFirebase = new TopicMethodFirebase();
     ImageView mSearchIv;
+
+    final TopicMethodFirebase topicMethodFirebase = new TopicMethodFirebase();
+    final UserMethodFirebase userMethodFirebase = new UserMethodFirebase();
+    final FirebaseMethods firebaseMethods = new FirebaseMethods();
 
     @Override
     public void onPrepareLayout() {
@@ -46,7 +50,21 @@ public class HomeTabFragment extends BaseFragment<HomeActivity> implements Topic
         initView();
         setUpAdapter();
         setUpRecycler();
-        loadData();
+
+        if(PrefManager.getTypeUser(getViewContext()).equals(Constant.Firebase.TYPE_ADMIN_COLLECTION))
+            loadDataAdmin();
+        else
+            loadData();
+    }
+
+    private void loadDataAdmin(){
+        firebaseMethods.topicRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot snapshots) {
+                ArrayList<Topic> topics = (ArrayList<Topic>) snapshots.toObjects(Topic.class);
+                mTopicAdapter.addTopic(topics);
+            }
+        });
     }
 
     private void initView() {
@@ -106,13 +124,12 @@ public class HomeTabFragment extends BaseFragment<HomeActivity> implements Topic
     @Override
     public void onApproveFile(Topic topic) {
         topic.setStatus(Constant.FILE.STATUS_APPROVE);
-        topicMethodFirebase.approveFile(topic)
+        topicMethodFirebase.approveFileAdmin(topic)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         topicMethodFirebase.approveFileTeacher(topic);
                         topicMethodFirebase.approveFileStudent(topic);
-                        topicMethodFirebase.deleteFile(topic);
                         mTopicAdapter.notifyDataSetChanged();
                         Toast.makeText(getViewContext(), "Approve file success", Toast.LENGTH_SHORT).show();
                     }

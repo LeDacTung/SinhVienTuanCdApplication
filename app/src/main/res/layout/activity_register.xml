@@ -176,6 +176,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layoutId"
                     android:layout_marginTop="@dimen/padding_20"
                     android:orientation="vertical"
                     android:layout_width="match_parent"

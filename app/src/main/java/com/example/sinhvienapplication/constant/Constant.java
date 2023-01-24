@@ -17,6 +17,7 @@ public interface Constant {
         String TOPIC_COLLECTION = "Topic";
         String TYPE_TEACHER_COLLECTION = "Teacher";
         String TYPE_STUDENT_COLLECTION = "Student";
+        String TYPE_ADMIN_COLLECTION = "Admin";
         String IMAGE_CHILD = "image";
         String AVATAR_CHILD = "avatar";
         String FILE_CHILD = "file";

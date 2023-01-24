@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,7 +29,6 @@ import com.example.sinhvienapplication.model.User;
 import com.example.sinhvienapplication.savedata.PrefManager;
 import com.example.sinhvienapplication.utils.dialog.DialogUtils;
 import com.example.sinhvienapplication.utils.file.FileUtils;
-import com.example.sinhvienapplication.utils.image.ImageUtils;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,7 +41,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.File;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -62,20 +59,25 @@ public class UploadFileActivity extends BaseActivity {
     EditText mTitleEdt, mDescriptionEdt;
     View mLayoutFile;
     ImageView mCloseTv, mBackIv;
-    Uri mUri;
-    Spinner mSpinner;
-    ArrayList<Person> mPersons = new ArrayList<>();
-    SpinnerAdapter mSpinnerAdapter;
+    Spinner mSpinnerTeacher, mSpinnerStudent;
+    LinearLayout mLayoutStudent;
+
     UserMethodFirebase userMethodFirebase = new UserMethodFirebase();
     TopicMethodFirebase topicMethodFirebase = new TopicMethodFirebase();
-    String mUidTeacher = "", mTypeFile = "", mSizeFile= "", mNameFile = "";
     User mUser;
     Topic mTopic;
+    SpinnerAdapter mTeacherSpinnerAdapter, mStudentSpinnerAdapter;
+
+    Uri mUri;
+    ArrayList<Person> mTeachers = new ArrayList<>();
+    ArrayList<Person> mStudents = new ArrayList<>();
+    String mUidTeacher = "", mTypeFile = "", mSizeFile= "", mNameFile = "", mUidStudent= "";
     static String TYPE_UPLOAD = "Upload";
     static String TYPE_EDIT = "Edit";
     String TYPE = TYPE_UPLOAD;
 
     private void initView() {
+        mLayoutStudent = findViewById(R.id.layoutStudent);
         mLayoutUpload = findViewById(R.id.layoutUpload);
         mNameFileTv = findViewById(R.id.name_file_tv);
         mLayoutChooseFile = findViewById(R.id.layoutChooseFile);
@@ -84,10 +86,17 @@ public class UploadFileActivity extends BaseActivity {
         mCloseTv = findViewById(R.id.close_iv);
         mUploadFileBtn = findViewById(R.id.upload_btn);
         mBackIv = findViewById(R.id.back_iv);
-        mSpinner = findViewById(R.id.spinner);
+        mSpinnerTeacher = findViewById(R.id.spinner_teacher);
+        mSpinnerStudent = findViewById(R.id.spinner_student);
         mTitleEdt = findViewById(R.id.title_edt);
         mDescriptionEdt = findViewById(R.id.description_edt);
         mHeaderTv = findViewById(R.id.header_tv);
+
+        if(PrefManager.getTypeUser(getViewContext()).equals(Constant.Firebase.TYPE_ADMIN_COLLECTION)){
+            mLayoutStudent.setVisibility(View.VISIBLE);
+        }else {
+            mLayoutStudent.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -97,6 +106,7 @@ public class UploadFileActivity extends BaseActivity {
         mTopic = (Topic) getIntent().getSerializableExtra(Constant.Intent.TOPIC_UPLOAD_FILE);
         initView();
         loadDataTeacher();
+        loadDataStudent();
         loadDataUser();
         setUpSpinner();
 
@@ -180,20 +190,47 @@ public class UploadFileActivity extends BaseActivity {
                 ArrayList<User> users = (ArrayList<User>) snapshots.toObjects(User.class);
                 for(User user: users){
                     Person person = new Person(user.getUid(), user.getName(), user.getImage());
-                    mSpinnerAdapter.addPersons(person);
+                    mTeacherSpinnerAdapter.addPersons(person);
+                }
+            }
+        });
+    }
+
+    private void loadDataStudent() {
+        userMethodFirebase.studentRef().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot snapshots) {
+                ArrayList<User> users = (ArrayList<User>) snapshots.toObjects(User.class);
+                for(User user: users){
+                    Person person = new Person(user.getUid(), user.getName(), user.getImage());
+                    mStudentSpinnerAdapter.addPersons(person);
                 }
             }
         });
     }
 
     private void setUpSpinner() {
-        mSpinnerAdapter = new SpinnerAdapter(getViewContext(), mPersons);
+        mTeacherSpinnerAdapter = new SpinnerAdapter(getViewContext(), mTeachers);
+        mStudentSpinnerAdapter = new SpinnerAdapter(getViewContext(), mStudents);
 
-        mSpinner.setAdapter(mSpinnerAdapter);
-        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mSpinnerTeacher.setAdapter(mTeacherSpinnerAdapter);
+        mSpinnerTeacher.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                mUidTeacher = mPersons.get(i).getId();
+                mUidTeacher = mTeachers.get(i).getId();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        mSpinnerStudent.setAdapter(mStudentSpinnerAdapter);
+        mSpinnerStudent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                mUidStudent = mStudents.get(i).getId();
             }
 
             @Override
@@ -252,7 +289,7 @@ public class UploadFileActivity extends BaseActivity {
                             fileUrl,
                             mTypeFile,
                             Method.getTimeCurrent(),
-                            FirebaseAuth.getInstance().getUid(),
+                            mUidStudent.equals("") ? FirebaseAuth.getInstance().getUid() : mUidStudent,
                             mUser.getName(),
                             mUidTeacher,
                             Constant.FILE.STATUS_NOT_APPROVE,
@@ -263,7 +300,7 @@ public class UploadFileActivity extends BaseActivity {
                     );
                     topicMethodFirebase.uploadFileStudent(topic);
                     topicMethodFirebase.uploadFileTeacher(topic);
-                    topicMethodFirebase.uploadFile(topic).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    topicMethodFirebase.uploadFileAdmin(topic).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
                             DialogUtils.dismissProgressDialog();

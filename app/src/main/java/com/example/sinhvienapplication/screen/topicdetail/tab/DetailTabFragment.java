@@ -44,7 +44,6 @@ public class DetailTabFragment extends BaseFragment<TopicDetailActivity> {
 
     EditText mMarkEdt;
     Button mSaveMarkBtn;
-    ConstraintLayout mMarkLayout;
     TextView mNameFileTv, mSizeTv;
 
     Topic mTopic;
@@ -59,7 +58,6 @@ public class DetailTabFragment extends BaseFragment<TopicDetailActivity> {
         mSizeTv = getRootView().findViewById(R.id.size_tv);
         mMarkEdt = getRootView().findViewById(R.id.mark_edt);
         mSaveMarkBtn = getRootView().findViewById(R.id.save_mark_btn);
-        mMarkLayout = getRootView().findViewById(R.id.layoutMark);
 
         getRootView().findViewById(R.id.back_iv).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +89,7 @@ public class DetailTabFragment extends BaseFragment<TopicDetailActivity> {
                         public void onSuccess(Void unused) {
                             DialogUtils.dismissProgressDialog();
                             topicMethodFirebase.markFileStudent(mTopic);
+                            topicMethodFirebase.updateFileAdmin(mTopic);
                             Toast.makeText(getViewContext(), "Update mark success!!!", Toast.LENGTH_SHORT).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -137,9 +136,9 @@ public class DetailTabFragment extends BaseFragment<TopicDetailActivity> {
 
     private void checkShowBtnMark(){
         if(PrefManager.getTypeUser(getViewContext()).equals(Constant.Firebase.TYPE_STUDENT_COLLECTION)){
-            mMarkLayout.setVisibility(View.GONE);
+            mSaveMarkBtn.setVisibility(View.GONE);
         }else {
-            mMarkLayout.setVisibility(View.VISIBLE);
+            mSaveMarkBtn.setVisibility(View.VISIBLE);
         }
     }
 

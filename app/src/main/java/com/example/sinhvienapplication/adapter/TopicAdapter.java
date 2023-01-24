@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sinhvienapplication.R;
 import com.example.sinhvienapplication.constant.Constant;
 import com.example.sinhvienapplication.model.Topic;
+import com.example.sinhvienapplication.savedata.PrefManager;
 import com.example.sinhvienapplication.utils.image.ImageUtils;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -135,7 +136,9 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
             if(topic.getStatus().equals(Constant.FILE.STATUS_NOT_APPROVE) &&
                     topic.getUidTeacher().equals(FirebaseAuth.getInstance().getUid())){
                 mApproveTv.setVisibility(View.VISIBLE);
-            }else {
+            } else if (PrefManager.getTypeUser(context).equals(Constant.Firebase.TYPE_ADMIN_COLLECTION)){
+                mApproveTv.setVisibility(View.VISIBLE);
+            } else {
                 mApproveTv.setVisibility(View.GONE);
             }
 

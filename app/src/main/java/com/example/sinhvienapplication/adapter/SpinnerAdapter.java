@@ -53,7 +53,7 @@ public class SpinnerAdapter extends BaseAdapter {
         CircleImageView imageView =  view.findViewById(R.id.image);
         TextView nameTv = (TextView) view.findViewById(R.id.name_tv);
         ImageUtils.loadImage(mContext, imageView, person.getImage());
-        nameTv.setText(person.getName());
+        nameTv.setText( person.getName()  );
         return view;
     }
 }

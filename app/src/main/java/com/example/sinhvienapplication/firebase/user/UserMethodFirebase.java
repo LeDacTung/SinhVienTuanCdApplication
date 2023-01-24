@@ -45,4 +45,10 @@ public class UserMethodFirebase {
                 .document(Constant.Firebase.TYPE_COLLECTION)
                 .collection(Constant.Firebase.TYPE_TEACHER_COLLECTION);
     }
+
+    public CollectionReference studentRef(){
+        return firebaseMethods.userRef
+                .document(Constant.Firebase.TYPE_COLLECTION)
+                .collection(Constant.Firebase.TYPE_TEACHER_COLLECTION);
+    }
 }

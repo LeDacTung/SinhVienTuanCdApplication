@@ -16,12 +16,13 @@ public class SplashActivity extends BaseActivity {
         return R.layout.activity_splash;
     }
 
-    TextView mStudentBtn, mTeacherBtn;
+    TextView mStudentBtn, mTeacherBtn, mAdminBtn;
 
     @Override
     public void onPrepareLayout() {
         super.onPrepareLayout();
         mStudentBtn = findViewById(R.id.student_btn);
+        mAdminBtn = findViewById(R.id.admin_btn);
         mTeacherBtn = findViewById(R.id.teacher_btn);
 
         if(PrefManager.getOpenFirstApp(getViewContext()) || PrefManager.getTypeUser(getViewContext()).equals("")){
@@ -40,6 +41,15 @@ public class SplashActivity extends BaseActivity {
                 public void onClick(View view) {
                     PrefManager.saveOpenFirstApp(getViewContext(), false);
                     PrefManager.saveTypeUser(getViewContext(), Constant.Firebase.TYPE_TEACHER_COLLECTION);
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                }
+            });
+
+            mAdminBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PrefManager.saveOpenFirstApp(getViewContext(), false);
+                    PrefManager.saveTypeUser(getViewContext(), Constant.Firebase.TYPE_ADMIN_COLLECTION);
                     startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                 }
             });
