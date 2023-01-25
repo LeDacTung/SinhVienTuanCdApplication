@@ -13,6 +13,15 @@ public class Topic implements Serializable {
     String sizeFile;
     String status;
     String mark;
+    User userStudent, userTeacher;
+
+    public User getUserTeacher() {
+        return userTeacher;
+    }
+
+    public User getUserStudent() {
+        return userStudent;
+    }
 
     public String getMark() {
         return mark;
@@ -131,7 +140,9 @@ public class Topic implements Serializable {
 
     public Topic(String nameFile,String title, String description, String fileUrl, String typeFile, String time,
                  String uidStudent, String nameStudent, String uidTeacher,
-                 String status, String sizeFile, String gradeStudent, String imageStudent, String mark) {
+                 String status, String sizeFile, String gradeStudent, String imageStudent, String mark,
+                 User userStudent,
+                 User userTeacher) {
         this.nameFile = nameFile;
         this.title = title;
         this.description = description;
@@ -146,6 +157,8 @@ public class Topic implements Serializable {
         this.status = status;
         this.sizeFile = sizeFile;
         this.mark = mark;
+        this.userStudent = userStudent;
+        this.userTeacher = userTeacher;
     }
 
     public HashMap<String, Object> toMap(){
@@ -164,6 +177,8 @@ public class Topic implements Serializable {
         map.put("status", status);
         map.put("title", title);
         map.put("mark", mark);
+        map.put("userStudent", userStudent.toMap());
+        map.put("userTeacher", userTeacher.toMap());
         return map;
     }
 }

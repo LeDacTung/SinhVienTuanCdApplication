@@ -100,7 +100,12 @@ public class SearchActivity extends BaseActivity implements TopicAdapter.TopicCl
     }
 
     @Override
-    public void onEdit(Topic topic) {
+    public void onEditFile(Topic topic) {
+
+    }
+
+    @Override
+    public void onDeleteFile(Topic topic) {
 
     }
 

@@ -49,6 +49,6 @@ public class UserMethodFirebase {
     public CollectionReference studentRef(){
         return firebaseMethods.userRef
                 .document(Constant.Firebase.TYPE_COLLECTION)
-                .collection(Constant.Firebase.TYPE_TEACHER_COLLECTION);
+                .collection(Constant.Firebase.TYPE_STUDENT_COLLECTION);
     }
 }

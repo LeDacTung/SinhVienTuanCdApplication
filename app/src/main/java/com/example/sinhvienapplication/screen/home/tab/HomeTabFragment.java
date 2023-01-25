@@ -22,6 +22,8 @@ import com.example.sinhvienapplication.screen.home.HomeActivity;
 import com.example.sinhvienapplication.screen.search.SearchActivity;
 import com.example.sinhvienapplication.screen.topicdetail.TopicDetailActivity;
 import com.example.sinhvienapplication.screen.uploadfile.UploadFileActivity;
+import com.example.sinhvienapplication.utils.dialog.DialogUtils;
+import com.example.sinhvienapplication.utils.dialog.DialogYesNo;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -77,6 +79,15 @@ public class HomeTabFragment extends BaseFragment<HomeActivity> implements Topic
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(PrefManager.getTypeUser(getViewContext()).equals(Constant.Firebase.TYPE_ADMIN_COLLECTION))
+            loadDataAdmin();
+        else
+            loadData();
+    }
+
     private void loadData() {
         topicMethodFirebase.loadData(PrefManager.getTypeUser(getViewContext()),
                 FirebaseAuth.getInstance().getUid())
@@ -115,10 +126,46 @@ public class HomeTabFragment extends BaseFragment<HomeActivity> implements Topic
     }
 
     @Override
-    public void onEdit(Topic topic) {
+    public void onEditFile(Topic topic) {
         Intent intent = new Intent(getViewContext(), UploadFileActivity.class);
         intent.putExtra(Constant.Intent.TOPIC_UPLOAD_FILE, topic);
         startActivity(intent);
+    }
+
+    @Override
+    public void onDeleteFile(Topic topic) {
+        DialogYesNo dialogYesNo = new DialogYesNo(getViewContext(),
+                "Delete File : "+topic.getNameFile(),
+                "Do you want delete file !!!",
+                new DialogYesNo.OnClickListener() {
+                    @Override
+                    public void onYes() {
+                        FirebaseAuth.getInstance().signOut();
+                        deleteFile(topic);
+                    }
+                });
+        dialogYesNo.show();
+    }
+
+    private void deleteFile(Topic topic){
+        DialogUtils.showProgressDialog(getBaseActivity());
+        topicMethodFirebase.deleteFileStudent(topic);
+        topicMethodFirebase.deleteFileTeacher(topic);
+        topicMethodFirebase.deleteFileAdmin(topic).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                DialogUtils.dismissProgressDialog();
+                Toast.makeText(getBaseActivity(), "Delete success !!!", Toast.LENGTH_SHORT).show();
+
+                loadData();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                DialogUtils.dismissProgressDialog();
+                Toast.makeText(getBaseActivity(), "Delete fail !!!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

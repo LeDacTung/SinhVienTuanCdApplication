@@ -64,7 +64,7 @@ public class UploadFileActivity extends BaseActivity {
 
     UserMethodFirebase userMethodFirebase = new UserMethodFirebase();
     TopicMethodFirebase topicMethodFirebase = new TopicMethodFirebase();
-    User mUser;
+    User mUserStudent, mUserTeacher;
     Topic mTopic;
     SpinnerAdapter mTeacherSpinnerAdapter, mStudentSpinnerAdapter;
 
@@ -92,10 +92,10 @@ public class UploadFileActivity extends BaseActivity {
         mDescriptionEdt = findViewById(R.id.description_edt);
         mHeaderTv = findViewById(R.id.header_tv);
 
-        if(PrefManager.getTypeUser(getViewContext()).equals(Constant.Firebase.TYPE_ADMIN_COLLECTION)){
-            mLayoutStudent.setVisibility(View.VISIBLE);
-        }else {
+        if(PrefManager.getTypeUser(getViewContext()).equals(Constant.Firebase.TYPE_STUDENT_COLLECTION)){
             mLayoutStudent.setVisibility(View.GONE);
+        }else {
+            mLayoutStudent.setVisibility(View.VISIBLE);
         }
     }
 
@@ -107,11 +107,11 @@ public class UploadFileActivity extends BaseActivity {
         initView();
         loadDataTeacher();
         loadDataStudent();
-        loadDataUser();
         setUpSpinner();
 
         if(mTopic != null){
             setData(mTopic);
+            TYPE = TYPE_EDIT;
         }else {
             TYPE = TYPE_UPLOAD;
         }
@@ -139,14 +139,7 @@ public class UploadFileActivity extends BaseActivity {
             }
         });
 
-        mUploadFileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(mUri != null) {
-                    uploadFile();
-                }
-            }
-        });
+
 
         mBackIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -158,7 +151,8 @@ public class UploadFileActivity extends BaseActivity {
     }
 
     private void setData(Topic mTopic) {
-        TYPE = TYPE_EDIT;
+        mUserStudent = mTopic.getUserStudent();
+        mUserTeacher = mTopic.getUserTeacher();
         mLayoutUpload.setVisibility(View.GONE);
         mLayoutFile.setVisibility(View.VISIBLE);
 
@@ -167,14 +161,47 @@ public class UploadFileActivity extends BaseActivity {
         mTitleEdt.setText(mTopic.getTitle());
         mDescriptionEdt.setText(mTopic.getDescription());
         mHeaderTv.setText("Edit file");
+        mUploadFileBtn.setText("Edit file ");
+
+        mUploadFileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mUserTeacher == null || mUserStudent == null){
+                    Toast.makeText(UploadFileActivity.this, "Can't upload file because teacher or student null  ", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(TYPE.equals(TYPE_UPLOAD)){
+                    if(mUri != null) {
+                        uploadFile();
+                    }
+                }else if (TYPE.equals(TYPE_EDIT)) {
+                    if(mUri != null) {
+                        uploadFile();
+                    }else {
+                        editFileNoUri(mTopic);
+                    }
+                }
+            }
+        });
     }
 
-    private void loadDataUser() {
-        userMethodFirebase.userRef(FirebaseAuth.getInstance().getUid(), PrefManager.getTypeUser(getViewContext()))
+    private void loadDataUserStudent(String uid) {
+        userMethodFirebase.userRef(uid, Constant.Firebase.TYPE_STUDENT_COLLECTION)
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        mUser = documentSnapshot.toObject(User.class);
+                        mUserStudent = documentSnapshot.toObject(User.class);
+                    }
+                });
+    }
+
+    private void loadDataUserTeacher(String uid) {
+        userMethodFirebase.userRef(uid, Constant.Firebase.TYPE_TEACHER_COLLECTION)
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        mUserTeacher = documentSnapshot.toObject(User.class);
                     }
                 });
     }
@@ -184,23 +211,42 @@ public class UploadFileActivity extends BaseActivity {
     }
 
     private void loadDataTeacher() {
-        userMethodFirebase.teacherRef().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot snapshots) {
-                ArrayList<User> users = (ArrayList<User>) snapshots.toObjects(User.class);
-                for(User user: users){
-                    Person person = new Person(user.getUid(), user.getName(), user.getImage());
-                    mTeacherSpinnerAdapter.addPersons(person);
+        if(PrefManager.getTypeUser(getViewContext()).equals(Constant.Firebase.TYPE_TEACHER_COLLECTION)){
+            userMethodFirebase.userRef(FirebaseAuth.getInstance().getUid(), PrefManager.getTypeUser(getViewContext()))
+                    .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            User user = documentSnapshot.toObject(User.class);
+                            mUserTeacher = user;
+                            Person person = new Person(user.getUid(), user.getName(), user.getImage());
+                            mTeacherSpinnerAdapter.addPersons(person);
+                        }
+                    });
+        }else {
+            userMethodFirebase.teacherRef().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot snapshots) {
+                    ArrayList<User> users = (ArrayList<User>) snapshots.toObjects(User.class);
+                    mUserTeacher = users.get(0);
+                    for(User user: users){
+                        Person person = new Person(user.getUid(), user.getName(), user.getImage());
+                        mTeacherSpinnerAdapter.addPersons(person);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     private void loadDataStudent() {
+        if(PrefManager.getTypeUser(getViewContext()).equals(Constant.Firebase.TYPE_STUDENT_COLLECTION)){
+            loadDataUserStudent(FirebaseAuth.getInstance().getUid());
+        }
+
         userMethodFirebase.studentRef().get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot snapshots) {
                 ArrayList<User> users = (ArrayList<User>) snapshots.toObjects(User.class);
+                mUserStudent = users.get(0);
                 for(User user: users){
                     Person person = new Person(user.getUid(), user.getName(), user.getImage());
                     mStudentSpinnerAdapter.addPersons(person);
@@ -218,6 +264,7 @@ public class UploadFileActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 mUidTeacher = mTeachers.get(i).getId();
+                loadDataUserTeacher(mUidTeacher);
             }
 
             @Override
@@ -231,6 +278,7 @@ public class UploadFileActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 mUidStudent = mStudents.get(i).getId();
+                loadDataUserStudent(mUidStudent);
             }
 
             @Override
@@ -289,41 +337,103 @@ public class UploadFileActivity extends BaseActivity {
                             fileUrl,
                             mTypeFile,
                             Method.getTimeCurrent(),
-                            mUidStudent.equals("") ? FirebaseAuth.getInstance().getUid() : mUidStudent,
-                            mUser.getName(),
-                            mUidTeacher,
+                            mUserStudent.getUid().equals("") ? FirebaseAuth.getInstance().getUid() : mUidStudent,
+                            mUserStudent.getName(),
+                            mUserTeacher.getUid(),
                             Constant.FILE.STATUS_NOT_APPROVE,
                             mSizeFile,
-                            mUser.getGrade(),
-                            mUser.getImage(),
-                            Constant.NUMBER_MARK.MARK_DEFAULT /* điểm mặc định khi upload file */
+                            mUserStudent.getGrade(),
+                            mUserStudent.getImage(),
+                            Constant.NUMBER_MARK.MARK_DEFAULT /* điểm mặc định khi upload file */,
+                            mUserStudent,
+                            mUserTeacher
                     );
-                    topicMethodFirebase.uploadFileStudent(topic);
-                    topicMethodFirebase.uploadFileTeacher(topic);
-                    topicMethodFirebase.uploadFileAdmin(topic).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            DialogUtils.dismissProgressDialog();
-                            Toast.makeText(UploadFileActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            DialogUtils.dismissProgressDialog();
-                            onBackPressed();
-                            Toast.makeText(UploadFileActivity.this, "Fail "+e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+
+                    if(TYPE.equals(TYPE_UPLOAD)){
+                        uploadFile(topic);
+                    }else if(TYPE.equals(TYPE_EDIT)){
+                        editFile(topic);
+                    }
+
+
                 } else {
                     DialogUtils.dismissProgressDialog();
-                    Toast.makeText(UploadFileActivity.this, "UploadedFailed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadFileActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(UploadFileActivity.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private String getfileExtension(Uri uri, Context context)
-    {
+    private void editFileNoUri(Topic topic){
+        DialogUtils.showProgressDialog(getViewContext(), "Upload file...");
+        Topic _topic = new Topic(
+                topic.getNameFile(),
+                mTitleEdt.getText().toString(),
+                mDescriptionEdt.getText().toString(),
+                topic.getFileUrl(),
+                topic.getTypeFile(),
+                Method.getTimeCurrent(),
+                mUserStudent.getUid().equals("") ? FirebaseAuth.getInstance().getUid() : mUidStudent,
+                topic.getUserStudent().getName(),
+                mUserTeacher.getUid(),
+                topic.getStatus(),
+                topic.getSizeFile(),
+                topic.getUserStudent().getGrade(),
+                topic.getUserStudent().getImage(),
+                topic.getMark(),
+                topic.getUserStudent(),
+                topic.getUserTeacher()
+        );
+        editFile(_topic);
+    }
+
+    private void editFile(Topic topic){
+        topicMethodFirebase.updateFileStudent(topic);
+        topicMethodFirebase.updateFileTeacher(topic);
+        topicMethodFirebase.updateFileAdmin(topic).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                DialogUtils.dismissProgressDialog();
+
+                finish();
+                Toast.makeText(UploadFileActivity.this, "Success", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                DialogUtils.dismissProgressDialog();
+                onBackPressed();
+                Toast.makeText(UploadFileActivity.this, "Fail "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void uploadFile(Topic topic){
+        topicMethodFirebase.uploadFileStudent(topic);
+        topicMethodFirebase.uploadFileTeacher(topic);
+        topicMethodFirebase.uploadFileAdmin(topic).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                DialogUtils.dismissProgressDialog();
+                finish();
+                Toast.makeText(UploadFileActivity.this, "Success", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                DialogUtils.dismissProgressDialog();
+                onBackPressed();
+                Toast.makeText(UploadFileActivity.this, "Fail "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private String getfileExtension(Uri uri, Context context) {
         String extension;
         ContentResolver contentResolver = context.getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();

@@ -21,7 +21,9 @@
                 style="@style/Text.Logo"
                 android:id="@+id/title_tv"
                 android:text="Title"
-                android:layout_width="wrap_content"
+                android:layout_toLeftOf="@id/close_iv"
+                android:layout_marginRight="@dimen/padding_10"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </TextView>
 

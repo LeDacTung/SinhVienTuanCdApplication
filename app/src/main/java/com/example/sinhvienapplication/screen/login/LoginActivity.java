@@ -15,6 +15,7 @@ import com.example.sinhvienapplication.base.BaseActivity;
 import com.example.sinhvienapplication.firebase.user.UserMethodFirebase;
 import com.example.sinhvienapplication.model.User;
 import com.example.sinhvienapplication.savedata.PrefManager;
+import com.example.sinhvienapplication.screen.splash.SplashActivity;
 import com.example.sinhvienapplication.utils.dialog.DialogUtils;
 import com.example.sinhvienapplication.screen.home.HomeActivity;
 import com.example.sinhvienapplication.screen.register.RegisterActivity;
@@ -133,7 +134,8 @@ public class LoginActivity extends BaseActivity {
         findViewById(R.id.back_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                startActivity(new Intent(LoginActivity.this, SplashActivity.class));
+                finish();
             }
         });
     }

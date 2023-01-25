@@ -32,6 +32,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
     }
 
     public void addTopic(ArrayList<Topic> topics){
+        mTopics.clear();
         mTopics.addAll(topics);
         notifyDataSetChanged();
     }
@@ -77,7 +78,14 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
         holder.mEditTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                topicClickListener.onEdit(topic);
+                topicClickListener.onEditFile(topic);
+            }
+        });
+
+        holder.mDeleteTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                topicClickListener.onDeleteFile(topic);
             }
         });
     }
@@ -90,11 +98,14 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
     public interface TopicClickListener {
         void onClick(Topic topic);
 
-        void onEdit(Topic topic);
+        void onEditFile(Topic topic);
+
+        void onDeleteFile(Topic topic);
 
         void onApproveFile(Topic topic);
 
         void onViewFile(Topic topic);
+
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
@@ -104,7 +115,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
         TextView mNameTv, mTimeTv, mDescriptionTv, mGradeTv;
         LinearLayout mLayoutFile;
         TextView mApproveTv, mNoteApproveTv;
-        TextView mEditTv;
+        TextView mEditTv, mDeleteTv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -121,6 +132,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
             mApproveTv = itemView.findViewById(R.id.approve_tv);
             mNoteApproveTv = itemView.findViewById(R.id.note_approve_tv);
             mEditTv = itemView.findViewById(R.id.edit_tv);
+            mDeleteTv = itemView.findViewById(R.id.delete_tv);
         }
 
         public void bindData(Topic topic, Context context){
@@ -133,27 +145,48 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
             mGradeTv.setText(topic.getGradeStudent());
             ImageUtils.loadImage(context, mImageUser, topic.getImageStudent());
 
-            if(topic.getStatus().equals(Constant.FILE.STATUS_NOT_APPROVE) &&
-                    topic.getUidTeacher().equals(FirebaseAuth.getInstance().getUid())){
-                mApproveTv.setVisibility(View.VISIBLE);
-            } else if (PrefManager.getTypeUser(context).equals(Constant.Firebase.TYPE_ADMIN_COLLECTION)){
-                mApproveTv.setVisibility(View.VISIBLE);
-            } else {
-                mApproveTv.setVisibility(View.GONE);
-            }
+            checkStatusFile(context, topic, mApproveTv, mNoteApproveTv);
+            checkPermissionEditFile(topic, mEditTv);
+            checkPermissionDeleteFile(context, topic, mDeleteTv);
+        }
+    }
 
-            if(topic.getStatus().equals(Constant.FILE.STATUS_APPROVE)){
-                mNoteApproveTv.setVisibility(View.VISIBLE);
-            }else {
-                mNoteApproveTv.setVisibility(View.GONE);
-            }
+    private void checkPermissionDeleteFile(Context context, Topic topic, TextView mDeleteTv) {
+        if(PrefManager.getTypeUser(context).equals(Constant.Firebase.TYPE_STUDENT_COLLECTION)){
+            mDeleteTv.setVisibility(View.GONE);
+        }else {
+            mDeleteTv.setVisibility(View.VISIBLE);
+        }
+    }
 
-            if(topic.getUidStudent().equals(FirebaseAuth.getInstance().getUid())
-             && topic.getStatus().equals(Constant.FILE.STATUS_NOT_APPROVE)){
-                mEditTv.setVisibility(View.VISIBLE);
-            }else {
+    private void checkPermissionEditFile(Topic topic, TextView mEditTv) {
+        if(topic.getStatus().equals(Constant.FILE.STATUS_NOT_APPROVE)){
+            mEditTv.setVisibility(View.VISIBLE);
+        }else {
+            if(PrefManager.getTypeUser(mContext).equals(Constant.Firebase.TYPE_STUDENT_COLLECTION))
                 mEditTv.setVisibility(View.GONE);
-            }
+            else
+                mEditTv.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void checkStatusFile(Context context, Topic topic, TextView mApproveTv, TextView mNoteApproveTv) {
+        if(topic.getStatus().equals(Constant.FILE.STATUS_NOT_APPROVE) &&
+                topic.getUidTeacher().equals(FirebaseAuth.getInstance().getUid())){
+            mApproveTv.setVisibility(View.VISIBLE);
+        } else if (PrefManager.getTypeUser(context).equals(Constant.Firebase.TYPE_ADMIN_COLLECTION)){
+            if (topic.getStatus().equals(Constant.FILE.STATUS_NOT_APPROVE))
+                mApproveTv.setVisibility(View.VISIBLE);
+            else
+                mApproveTv.setVisibility(View.GONE);
+        } else {
+            mApproveTv.setVisibility(View.GONE);
+        }
+
+        if(topic.getStatus().equals(Constant.FILE.STATUS_APPROVE)){
+            mNoteApproveTv.setVisibility(View.VISIBLE);
+        }else {
+            mNoteApproveTv.setVisibility(View.GONE);
         }
     }
 }

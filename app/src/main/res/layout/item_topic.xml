@@ -167,6 +167,17 @@
             android:layout_height="@dimen/v2_margin35">
         </TextView>
 
+        <TextView
+            android:gravity="center"
+            android:layout_marginTop="@dimen/padding_20"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_btn_red"
+            android:text="Delete"
+            android:id="@+id/delete_tv"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/v2_margin35">
+        </TextView>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

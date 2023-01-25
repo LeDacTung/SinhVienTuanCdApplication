@@ -1,10 +1,11 @@
 package com.example.sinhvienapplication.model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Handler;
 
-public class User {
+public class User implements Serializable {
     String uid, id, name, phone, image,
             gmail, grade, type;
 
