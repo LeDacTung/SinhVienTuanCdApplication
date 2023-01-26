@@ -3,26 +3,29 @@ package com.example.sinhvienapplication.utils.dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 import com.example.sinhvienapplication.R;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
-public class DialogYesNo extends MaterialAlertDialogBuilder implements DialogInterface.OnDismissListener {
+public class DialogYesNo extends DialogFragment {
     Context mContext;
-    public DialogYesNo(@NonNull Context context) {
-        super(context);
-        mContext =context;
+    View mView;
+
+    public DialogYesNo(Context mContext) {
+        this.mContext = mContext;
     }
 
     public DialogYesNo(@NonNull Context context, String title, String content, OnClickListener onClickListener) {
-        super(context);
         this.mContext = context;
         this.title = title;
         this.content = content;
@@ -33,18 +36,10 @@ public class DialogYesNo extends MaterialAlertDialogBuilder implements DialogInt
     TextView mTitleTv, mContentTv, mYesTv, mNoTv;
     OnClickListener onClickListener;
 
-    @NonNull
     @Override
-    public MaterialAlertDialogBuilder setBackground(@Nullable Drawable background) {
-        return super.setBackground(background);
-    }
-
-    @NonNull
-    @Override
-    public MaterialAlertDialogBuilder setView(@Nullable View view) {
-        View mView = LayoutInflater.from(mContext).inflate(R.layout.dialog_yes_no, null);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         initView(mView);
-        setBackground(mContext.getDrawable(R.drawable.bg_dialog_white));
         mTitleTv.setText(title);
         mContentTv.setText(content);
 
@@ -55,13 +50,26 @@ public class DialogYesNo extends MaterialAlertDialogBuilder implements DialogInt
             }
         });
 
-        return super.setView(mView);
+        mView.findViewById(R.id.close_iv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDialog().dismiss();
+            }
+        });
+
+        mNoTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDialog().dismiss();
+            }
+        });
     }
 
-    @NonNull
+    @Nullable
     @Override
-    public MaterialAlertDialogBuilder setOnDismissListener(@Nullable DialogInterface.OnDismissListener onDismissListener) {
-        return super.setOnDismissListener(onDismissListener);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mView = inflater.inflate(R.layout.dialog_yes_no, container);
+        return mView;
     }
 
     private void initView(View mView) {
@@ -70,36 +78,10 @@ public class DialogYesNo extends MaterialAlertDialogBuilder implements DialogInt
         mYesTv = mView.findViewById(R.id.yes_tv);
         mNoTv = mView.findViewById(R.id.no_tv);
 
-        mView.findViewById(R.id.close_iv).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onDismiss(new DialogInterface() {
-                    @Override
-                    public void cancel() {
-
-                    }
-
-                    @Override
-                    public void dismiss() {
-
-                    }
-                });
-            }
-        });
     }
 
     public interface OnClickListener{
         void onYes();
     }
 
-    @Override
-    public AlertDialog show() {
-        setView(null);
-        return super.show();
-    }
-
-    @Override
-    public void onDismiss(DialogInterface dialogInterface) {
-
-    }
 }

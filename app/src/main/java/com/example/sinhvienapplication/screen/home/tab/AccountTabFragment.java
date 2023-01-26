@@ -27,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.sinhvienapplication.R;
 import com.example.sinhvienapplication.base.BaseActivity;
@@ -81,7 +82,7 @@ public class AccountTabFragment extends BaseFragment<HomeActivity> {
     EditText mEmailEdt;
     EditText mNameEdt ;
     EditText mPhoneEdt;
-    TextView mClassTv;
+    TextView mClassTv, mIdTv;
     CircleImageView mProfileIv;
     ImageView mEditImageBtn, mLogoutIv;
     TextView mSaveTv;
@@ -163,7 +164,8 @@ public class AccountTabFragment extends BaseFragment<HomeActivity> {
                                 gotoLogin();
                             }
                         });
-                dialogYesNo.show();
+                FragmentManager fm = getViewContext().getSupportFragmentManager();
+                dialogYesNo.show(fm, "");
             }
         });
 
@@ -289,11 +291,12 @@ public class AccountTabFragment extends BaseFragment<HomeActivity> {
                         mEmailEdt.setText(email);
                         mNameEdt.setText(name);
                         mPhoneEdt.setText(phone);
+                        mClassTv.setText(user.getGrade());
+                        mIdTv.setText(id);
                         ImageUtils.loadImage(getViewContext(), mProfileIv, image);
 
                         if(user.getType().equals(Constant.Firebase.TYPE_STUDENT_COLLECTION)){
                             mLayoutClass.setVisibility(View.VISIBLE);
-                            mClassTv.setText(user.getGrade());
                         }else {
                             mLayoutClass.setVisibility(View.GONE);
                         }
@@ -429,6 +432,7 @@ public class AccountTabFragment extends BaseFragment<HomeActivity> {
         mNameEdt = getRootView().findViewById(R.id.name_edt);
         mPhoneEdt = getRootView().findViewById(R.id.phone_edt);
         mClassTv = getRootView().findViewById(R.id.class_tv);
+        mIdTv = getRootView().findViewById(R.id.id_tv);
         mProfileIv = getRootView().findViewById(R.id.profile_iv);
         mEditImageBtn = getRootView().findViewById(R.id.edit_image_btn);
         mSaveTv = getRootView().findViewById(R.id.save_tv);

@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -144,7 +146,9 @@ public class HomeTabFragment extends BaseFragment<HomeActivity> implements Topic
                         deleteFile(topic);
                     }
                 });
-        dialogYesNo.show();
+
+        FragmentManager fm = getViewContext().getSupportFragmentManager();
+        dialogYesNo.show(fm, "");
     }
 
     private void deleteFile(Topic topic){

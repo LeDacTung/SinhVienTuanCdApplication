@@ -2,9 +2,13 @@ package com.example.sinhvienapplication.screen.login;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +45,7 @@ public class LoginActivity extends BaseActivity {
     EditText mPasswordEdt;
     FirebaseAuth mAuth;
     final UserMethodFirebase userMethodFirebase = new UserMethodFirebase();
+    ImageView mEyeIv;
 
     @Override
     public void onPrepareLayout() {
@@ -123,6 +128,21 @@ public class LoginActivity extends BaseActivity {
         mMailEdt = findViewById(R.id.mail_edt);
         mPasswordEdt = findViewById(R.id.password_edt);
         mSignInBtn = findViewById(R.id.sign_in_btn);
+        mEyeIv = findViewById(R.id.eye_iv);
+
+        mEyeIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mPasswordEdt.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+                    ((ImageView)(view)).setImageResource(R.drawable.ic_baseline_eye_off_24);
+                    mPasswordEdt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+                else{
+                    ((ImageView)(view)).setImageResource(R.drawable.ic_baseline_remove_red_eye_24);
+                    mPasswordEdt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
 
         mSignUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override

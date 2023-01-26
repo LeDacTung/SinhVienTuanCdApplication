@@ -1,6 +1,7 @@
 package com.example.sinhvienapplication.screen.home;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -32,7 +33,6 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void onPrepareLayout() {
         super.onPrepareLayout();
-
         addFragmentToActivity(new HomeTabFragment());
         initView();
     }

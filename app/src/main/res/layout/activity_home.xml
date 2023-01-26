@@ -18,9 +18,8 @@
         android:layout_height="56dp"
         android:layout_centerInParent="true"
         android:layout_alignParentBottom="true"
-        app:itemIconTint="@drawable/bg_color_item_menu"
-        app:itemRippleColor="@drawable/bg_color_item_menu"
-        app:itemTextColor="@drawable/bg_color_item_menu"
+        app:itemIconTint="@color/bg_color_item_menu"
+        app:itemTextColor="@color/bg_color_item_menu"
         app:menu="@menu/bottom_nav_menu" />
 
 </RelativeLayout>

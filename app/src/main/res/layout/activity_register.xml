@@ -345,7 +345,7 @@
                         </LinearLayout>
 
                         <ImageView
-                            android:id="@+id/confirm_eye_iv"
+                            android:id="@+id/eye_iv"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center"

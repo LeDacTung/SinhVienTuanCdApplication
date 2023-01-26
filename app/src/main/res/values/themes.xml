@@ -29,4 +29,8 @@
     <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
 
     </style>
+
+    <style name="BottomNavThem" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/green_main</item>
+    </style>
 </resources>

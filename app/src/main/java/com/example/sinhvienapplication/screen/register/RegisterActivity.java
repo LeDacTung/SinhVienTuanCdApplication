@@ -2,6 +2,8 @@ package com.example.sinhvienapplication.screen.register;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -41,6 +43,7 @@ public class RegisterActivity extends BaseActivity {
     TextView mSignInBtn;
     EditText mMailEdt, mUsernameEdt, mStudentCodeEdt, mClassEdt;
     EditText mPasswordEdt;
+    ImageView mEyeIv;
 
     FirebaseAuth mAuth;
     UserMethodFirebase mUserMethod;
@@ -58,6 +61,21 @@ public class RegisterActivity extends BaseActivity {
         mClassEdt = findViewById(R.id.class_edt);
         mLayoutClass = findViewById(R.id.layoutClass);
         mLayoutId = findViewById(R.id.layoutId);
+        mEyeIv = findViewById(R.id.eye_iv);
+
+        mEyeIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mPasswordEdt.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+                    ((ImageView)(view)).setImageResource(R.drawable.ic_baseline_eye_off_24);
+                    mPasswordEdt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+                else{
+                    ((ImageView)(view)).setImageResource(R.drawable.ic_baseline_remove_red_eye_24);
+                    mPasswordEdt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
 
         mBackIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +148,7 @@ public class RegisterActivity extends BaseActivity {
         });
     }
 
-    boolean isExits = true;
+    boolean isExits = false;
     private void checkIdUser(String mail, String password, String id, String username, String grade){
         userMethodFirebase.userCollectionRef(PrefManager.getTypeUser(getViewContext()))
                 .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -142,11 +160,13 @@ public class RegisterActivity extends BaseActivity {
                                 Toast.makeText(RegisterActivity.this, "Id already exists ", Toast.LENGTH_SHORT).show();
                                 isExits = false;
                                 break;
+                            }else {
+                                isExits = true;
                             }
                         }
 
                         if(isExits){
-                            signUp(mail, password, id, username, "");
+                            signUp(mail, password, id, username, grade);
                         }
                     }
                 });
