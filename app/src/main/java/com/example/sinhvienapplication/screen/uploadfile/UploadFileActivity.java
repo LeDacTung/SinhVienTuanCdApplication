@@ -97,6 +97,8 @@ public class UploadFileActivity extends BaseActivity {
         }else {
             mLayoutStudent.setVisibility(View.VISIBLE);
         }
+
+
     }
 
     @Override
@@ -148,24 +150,11 @@ public class UploadFileActivity extends BaseActivity {
                 finish();
             }
         });
-    }
-
-    private void setData(Topic mTopic) {
-        mUserStudent = mTopic.getUserStudent();
-        mUserTeacher = mTopic.getUserTeacher();
-        mLayoutUpload.setVisibility(View.GONE);
-        mLayoutFile.setVisibility(View.VISIBLE);
-
-        mNameFileTv.setText(mTopic.getNameFile());
-        mSizeTv.setText(mTopic.getSizeFile());
-        mTitleEdt.setText(mTopic.getTitle());
-        mDescriptionEdt.setText(mTopic.getDescription());
-        mHeaderTv.setText("Edit file");
-        mUploadFileBtn.setText("Edit file ");
 
         mUploadFileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(mUserTeacher == null || mUserStudent == null){
                     Toast.makeText(UploadFileActivity.this, "Can't upload file because teacher or student null  ", Toast.LENGTH_SHORT).show();
                     return;
@@ -184,6 +173,22 @@ public class UploadFileActivity extends BaseActivity {
                 }
             }
         });
+    }
+
+    private void setData(Topic mTopic) {
+        mUserStudent = mTopic.getUserStudent();
+        mUserTeacher = mTopic.getUserTeacher();
+        mLayoutUpload.setVisibility(View.GONE);
+        mLayoutFile.setVisibility(View.VISIBLE);
+
+        mNameFileTv.setText(mTopic.getNameFile());
+        mSizeTv.setText(mTopic.getSizeFile());
+        mTitleEdt.setText(mTopic.getTitle());
+        mDescriptionEdt.setText(mTopic.getDescription());
+        mHeaderTv.setText("Edit file");
+        mUploadFileBtn.setText("Edit file ");
+
+
     }
 
     private void loadDataUserStudent(String uid) {
@@ -311,7 +316,6 @@ public class UploadFileActivity extends BaseActivity {
     }
 
     void uploadFileToStorage(Uri data){
-
         DialogUtils.showProgressDialog(getViewContext(), "Upload file...");
 
         StorageReference storageReference = FirebaseStorage.getInstance().getReference().child("file");
@@ -337,7 +341,7 @@ public class UploadFileActivity extends BaseActivity {
                             fileUrl,
                             mTypeFile,
                             Method.getTimeCurrent(),
-                            mUserStudent.getUid().equals("") ? FirebaseAuth.getInstance().getUid() : mUidStudent,
+                            mUserStudent == null ? FirebaseAuth.getInstance().getCurrentUser().getUid() : mUserStudent.getUid(),
                             mUserStudent.getName(),
                             mUserTeacher.getUid(),
                             Constant.FILE.STATUS_NOT_APPROVE,
@@ -348,6 +352,7 @@ public class UploadFileActivity extends BaseActivity {
                             mUserStudent,
                             mUserTeacher
                     );
+
 
                     if(TYPE.equals(TYPE_UPLOAD)){
                         uploadFile(topic);
