@@ -139,6 +139,8 @@ public class RegisterActivity extends BaseActivity {
                         }else {
                             checkIdUser(mail, password, id, username, grade);
                         }
+                    }else if(PrefManager.getTypeUser(getViewContext()).equals(Constant.Firebase.TYPE_ADMIN_COLLECTION)) {
+                        signUp(mail, password, Constant.Firebase.TYPE_ADMIN_COLLECTION, username, "");
                     }else {
                         checkIdUser(mail, password, id, username, "");
                     }
