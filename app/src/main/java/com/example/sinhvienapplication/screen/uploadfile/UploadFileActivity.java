@@ -188,7 +188,11 @@ public class UploadFileActivity extends BaseActivity {
         mHeaderTv.setText("Edit file");
         mUploadFileBtn.setText("Edit file ");
 
-
+        if(PrefManager.getTypeUser(getViewContext()).equals(Constant.Firebase.TYPE_TEACHER_COLLECTION)){
+            mSpinnerStudent.setEnabled(false);
+        }else {
+            mSpinnerStudent.setEnabled(true);
+        }
     }
 
     private void loadDataUserStudent(String uid) {

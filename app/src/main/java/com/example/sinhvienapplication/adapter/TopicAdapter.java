@@ -139,10 +139,10 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.ViewHolder> 
             mSizeFileTv.setText(topic.getSizeFile());
             mNameFileTv.setText(topic.getNameFile());
 
-            mNameTv.setText(topic.getNameStudent());
+            mNameTv.setText("Name student : "+topic.getUserStudent().getName());
             mTimeTv.setText(topic.getTime());
             mDescriptionTv.setText(topic.getDescription());
-            mGradeTv.setText(topic.getGradeStudent());
+            mGradeTv.setText("Class student : "+topic.getUserStudent().getGrade());
             ImageUtils.loadImage(context, mImageUser, topic.getImageStudent());
 
             checkStatusFile(context, topic, mApproveTv, mNoteApproveTv);
